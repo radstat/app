@@ -5,8 +5,8 @@
     .value('Data', {
       token: '',
       links: {
-        login: 'loginUrl',
-        register: 'registerUrl'
+        login: 'http://52.10.214.187:8000/api/login',
+        register: 'http://52.10.214.187:8000/api/register'
       }
     });
 
