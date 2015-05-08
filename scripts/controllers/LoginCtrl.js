@@ -60,20 +60,18 @@
 
         // Username Check
         if($scope.loginDetails.credentials.username == ''){
-          $scope.openToast('Username Empty');
+          $scope.openToast('Username is empty');
           return;
         }
 
         // Password Check
         if($scope.loginDetails.credentials.password == ''){
-          $scope.openToast('Password Empty');
+          $scope.openToast('Password is empty');
           return;
         }
 
         // Submit
-        $http.post(Data.links.loginDetails, {
-          credentials: $scope.loginDetails.credentials
-        })
+        $http.post(Data.links.loginDetails, $scope.loginDetails.credentials)
           .success(function (response) {
 
             Data.token = response.token;
@@ -108,32 +106,30 @@
 
         // Name Check
         if($scope.registration.details.name == ''){
-          $scope.openToast('Name Empty');
+          $scope.openToast('Name is empty');
           return;
         }
 
         // Username Check
         if($scope.registration.details.username == ''){
-          $scope.openToast('Username Empty');
+          $scope.openToast('Username is empty');
           return;
         }
 
         // Password Check
         if($scope.registration.details.password == ''){
-          $scope.openToast('Password Empty');
+          $scope.openToast('Password is empty');
           return;
         }
 
         // Email Check
         if($scope.registration.details.email == ''){
-          $scope.openToast('Email Empty');
+          $scope.openToast('Email is empty');
           return;
         }
 
         // Submit
-        $http.post(Data.links.register, {
-          details: $scope.registration.details
-        })
+        $http.post(Data.links.register, $scope.registration.details)
           .success(function (response) {
 
             Data.token = response.token;
