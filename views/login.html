@@ -1,1 +1,106 @@
-{{hw}}
+<md-card style="width: {{containerWidth}}" layout="column">
+  <md-card-content flex layout="column">
+
+    <!-- Title-->
+    <div layout="row" layout-align="center center" layout-padding layout-margin>
+
+      <!-- Logo-->
+      <img src="graphics/logo.png" width="50" height="50" alt="Logo"/>
+
+      <!-- Banner-->
+      <div flex>
+        <span class="md-display-1">RadStat</span>
+      </div>
+
+    </div>
+
+    <!-- Tabs-->
+    <md-tabs flex md-border-bottom>
+
+      <!-- Login Tab-->
+      <md-tab label="Login">
+        <md-content layout-fill layout-padding layout="column" layout-align="center center">
+
+          <!-- Inputs-->
+          <div layout="row" layout-sm="column" layout-align="center center">
+
+            <!-- Username Input-->
+            <md-input-container>
+              <label>Username</label>
+              <input type="text" ng-model="loginDetails.credentials.username" title="Username">
+            </md-input-container>
+
+            <!-- Password Input-->
+            <md-input-container>
+              <label>Password</label>
+              <input type="password" ng-model="loginDetails.credentials.password" title="Password">
+            </md-input-container>
+
+            <!-- Submit Button-->
+            <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+
+          </div>
+
+        </md-content>
+      </md-tab>
+      <md-tab label="Register">
+        <md-content layout-fill layout-padding layout="column" layout-align="center center">
+
+          <!-- Inputs-->
+          <div layout="column" layout-align="center center">
+
+            <div layout="row" layout-sm="column">
+
+              <!-- Name Input-->
+              <md-input-container>
+                <label>Name</label>
+                <input type="text" ng-model="registration.details.name" title="Name">
+              </md-input-container>
+
+              <!-- Username Input-->
+              <md-input-container>
+                <label>Username</label>
+                <input type="text" ng-model="registration.details.username" title="Username">
+              </md-input-container>
+
+              <!-- Password Input-->
+              <md-input-container>
+                <label>Password</label>
+                <input type="password" ng-model="registration.details.password" title="Password">
+              </md-input-container>
+
+            </div>
+
+            <div layout="row" layout-sm="column">
+
+              <!-- Email Input-->
+              <md-input-container>
+                <label>Email</label>
+                <input type="email" ng-model="registration.details.email" title="Email">
+              </md-input-container>
+
+              <!-- Contact Input-->
+              <md-input-container>
+                <label>Contact No</label>
+                <input type="text" ng-model="registration.details.contact" title="Contact No">
+              </md-input-container>
+
+              <!-- Contact Input-->
+              <md-input-container>
+                <label>Working / Studying at</label>
+                <input type="text" ng-model="registration.details.work" title="Working / Studying at">
+              </md-input-container>
+
+            </div>
+
+            <!-- Submit Button-->
+            <md-button class="md-raised md-primary" ng-click="register()">Register</md-button>
+
+          </div>
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+
+  </md-card-content>
+</md-card>
