@@ -71,7 +71,7 @@
         }
 
         // Submit
-        $http.post(Data.links.loginDetails, $scope.loginDetails.credentials)
+        $http.post(Data.links.base + Data.links.login, $scope.loginDetails.credentials)
           .success(function (response) {
 
             Data.token = response.token;
@@ -80,7 +80,7 @@
           })
           .error(function (response) {
 
-            if(response.error == 'username'){
+            if(response && response.error == 'username'){
               $scope.openDialog($event, 'Username is not registered', 'Okay', function () {
                 $scope.loginDetails.credentials.username = '';
                 $scope.loginDetails.credentials.password = '';
@@ -88,14 +88,14 @@
               return;
             }
 
-            if(response.error == 'password'){
+            if(response && response.error == 'password'){
               $scope.openDialog($event, 'Password is incorrect', 'Okay', function () {
                 $scope.loginDetails.credentials.password = '';
               });
               return;
             }
 
-            $scope.openDialog($event, response, 'Okay');
+            $scope.openDialog($event, response || 'Unknown Error', 'Okay');
 
           });
 
@@ -129,7 +129,7 @@
         }
 
         // Submit
-        $http.post(Data.links.register, $scope.registration.details)
+        $http.post(Data.links.base + Data.links.register, $scope.registration.details)
           .success(function (response) {
 
             Data.token = response.token;
@@ -138,7 +138,15 @@
           })
           .error(function (response) {
 
-            $scope.openDialog($event, response, 'Okay');
+            if(response && response.error == 'username'){
+              $scope.openDialog($event, 'Username is already taken.', 'Okay', function () {
+                $scope.registration.details.username = '';
+                $scope.registration.details.password = '';
+              });
+              return;
+            }
+
+            $scope.openDialog($event, response || 'Unknown Error', 'Okay');
 
           });
 
