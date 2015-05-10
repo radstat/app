@@ -1,1 +1,64 @@
-{{token}}
+<md-card style="width: {{containerWidth}}" layout="column">
+  <md-card-content flex layout="column">
+
+    <!-- Title-->
+    <div layout="row" layout-align="center center" layout-padding layout-margin>
+
+      <!-- Logo-->
+      <img src="graphics/logo.png" width="50" height="50" alt="Logo"/>
+
+      <!-- Banner-->
+      <div flex>
+        <span class="md-display-1">RadStat</span>
+      </div>
+
+    </div>
+
+    <br/>
+    <md-divider></md-divider>
+    <br/>
+
+    <!-- Spinner-->
+    <div flex ng-if="state == 'loadingUserData'" layout="column" layout-align="center center">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <!-- Organizer-->
+    <div flex ng-if="state == 'ready'" layout="row" layout-align="center">
+
+      <!-- Side Panel-->
+      <div flex="25" layout="column" style="border-right: 2px solid rgba(0,0,0,0.12);" layout-align="start center">
+
+        <h1 class="md-headline">{{data.userData.name}}</h1>
+        <span class="md-title">@{{data.userData.username}}</span>
+
+      </div>
+
+      <!-- Main Content-->
+      <div flex layout="column" layout-align="center center">
+
+        <!-- Uploader-->
+        <md-card>
+          <md-card-content layout="row" layout-align="center center">
+
+            <!-- Module Name-->
+            <md-input-container>
+              <label>Module Name</label>
+              <input type="text" ng-model="uploader.moduleName" title="Module Name"/>
+            </md-input-container>
+
+            <input type="file" id="newFile" title="File"/>
+
+            <!-- Upload-->
+            <md-button ng-if="state == 'ready'" class="md-primary" ng-click="upload();">Upload</md-button>
+            <md-progress-circular ng-if="state == 'uploading'" md-mode="indeterminate"></md-progress-circular>
+
+          </md-card-content>
+        </md-card>
+
+      </div>
+
+    </div>
+
+  </md-card-content>
+</md-card>
