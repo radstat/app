@@ -19,12 +19,14 @@
     <br/>
 
     <!-- Spinner-->
-    <div flex ng-if="state == 'loadingUserData'" layout="column" layout-align="center center">
+    <div flex ng-if="state == 'loadingUserData' || state == 'uploading'" layout="column" layout-align="center center">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      <h2 ng-if="state == 'loadingUserData'">Loading your data</h2>
+      <h2 ng-if="state == 'uploading'">Uploading</h2>
     </div>
 
     <!-- Organizer-->
-    <div flex ng-if="state == 'ready' || state == 'uploading'" layout="row" layout-align="center">
+    <div flex ng-if="state == 'ready'" layout="row" layout-align="center">
 
       <!-- Side Panel-->
       <div flex="25" layout="column" style="border-right: 2px solid rgba(0,0,0,0.12);" layout-align="start center">
@@ -39,7 +41,7 @@
 
         <!-- Uploader-->
         <md-card>
-          <md-card-content layout="row" layout-sm="column" layout-align="center center">
+          <md-card-content ng-if="state == 'ready'" layout="row" layout-sm="column" layout-align="center center">
 
             <!-- Module Name-->
             <md-input-container>
@@ -47,11 +49,10 @@
               <input ng-keypress="uploadEnterHandler($event)" type="text" ng-model="uploader.moduleName" title="Module Name"/>
             </md-input-container>
 
-            <input ng-keypress="uploadEnterHandler($event)" type="file" id="file" title="File"/>
+            <input type="file" id="file" title="File"/>
 
             <!-- Upload-->
             <md-button ng-if="state == 'ready'" class="md-primary" ng-click="upload($event);">Upload</md-button>
-            <md-progress-circular ng-if="state == 'uploading'" md-mode="indeterminate"></md-progress-circular>
 
           </md-card-content>
         </md-card>
