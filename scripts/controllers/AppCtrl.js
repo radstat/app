@@ -20,22 +20,6 @@
         $scope.containerWidth = width;
       });
 
-      //// Dummy State
-      //$scope.state = 'ready';
-      //Data.token = 'token';
-      //Data.userData = {
-      //  name: 'Dhruvin Gandhi',
-      //  username: 'dhruvin2910',
-      //  email: 'dhruvin2910@gmail.com',
-      //  contact: '9408651825',
-      //  work: 'Student @ BVM',
-      //  modules: [
-      //    'app',
-      //    'todos',
-      //    'learn-angular'
-      //  ]
-      //};
-
       // Token Availability
       if (!Data.token) {
         $location.url('/login');
@@ -54,12 +38,14 @@
             if (response && response.error == 'token') {
               $scope.openDialog(null, 'Login again', 'Okay', function () {
                 Data.token = '';
+                $location.url('/login');
               });
               return;
             }
 
-            $scope.openDialog(null, (response ? response.error : 'Unknown Error'), 'Okay', function () {
+            $scope.openDialog(null, response || 'Unknown Error', 'Okay', function () {
               Data.token = '';
+              $location.url('/login');
             });
 
           });
@@ -92,7 +78,7 @@
 
       $scope.upload = function ($event) {
 
-        var newFile = document.getElementById('newFile');
+        var file = document.getElementById('file');
 
         var validTypes = [
           'application/x-compressed',
@@ -106,12 +92,17 @@
           return;
         }
 
-        if (!newFile.files[0]) {
+        if (!file.files[0]) {
           $scope.openToast('No files are selected.');
           return;
         }
 
-        if (validTypes.indexOf(newFile.files[0].type) == -1) {
+        if (file.files[1]) {
+          $scope.openToast('Select only one zip file.');
+          return;
+        }
+
+        if (validTypes.indexOf(file.files[0].type) == -1) {
           $scope.openToast('Select a zip file.');
           return;
         }
@@ -121,21 +112,32 @@
         var fd = new FormData();
         fd.append('token', Data.token);
         fd.append('moduleName', $scope.uploader.moduleName);
-        fd.append('file', newFile.files[0]);
+        fd.append('file', file.files[0]);
 
-        $http.post(Data.links.base + Data.links.user, fd, {
+        $http.post(Data.links.base + Data.links.upload, fd, {
           headers: {'Content-Type': undefined},
           transformRequest: angular.identity
         }).success(function (response) {
+
           $scope.openToast('Uploaded Successfully.');
           $scope.uploader.moduleName = '';
-          newFile.files = [];
+          file.files = [];
           $scope.state = 'ready';
+
         }).error(function (response) {
+
           $scope.openDialog($event, 'Couldn\'t Upload.', 'Okay');
+          $scope.state = 'ready';
+
         });
 
       };
+
+      $scope.uploadEnterHandler = function ($event) {
+        if($event.which == 13){
+          $scope.upload($event);
+        }
+      }
 
     });
 

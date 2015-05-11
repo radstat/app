@@ -24,7 +24,7 @@
     </div>
 
     <!-- Organizer-->
-    <div flex ng-if="state == 'ready'" layout="row" layout-align="center">
+    <div flex ng-if="state == 'ready' || state == 'uploading'" layout="row" layout-align="center">
 
       <!-- Side Panel-->
       <div flex="25" layout="column" style="border-right: 2px solid rgba(0,0,0,0.12);" layout-align="start center">
@@ -39,18 +39,18 @@
 
         <!-- Uploader-->
         <md-card>
-          <md-card-content layout="row" layout-align="center center">
+          <md-card-content layout="row" layout-sm="column" layout-align="center center">
 
             <!-- Module Name-->
             <md-input-container>
               <label>Module Name</label>
-              <input type="text" ng-model="uploader.moduleName" title="Module Name"/>
+              <input ng-keypress="uploadEnterHandler($event)" type="text" ng-model="uploader.moduleName" title="Module Name"/>
             </md-input-container>
 
-            <input type="file" id="newFile" title="File"/>
+            <input ng-keypress="uploadEnterHandler($event)" type="file" id="file" title="File"/>
 
             <!-- Upload-->
-            <md-button ng-if="state == 'ready'" class="md-primary" ng-click="upload();">Upload</md-button>
+            <md-button ng-if="state == 'ready'" class="md-primary" ng-click="upload($event);">Upload</md-button>
             <md-progress-circular ng-if="state == 'uploading'" md-mode="indeterminate"></md-progress-circular>
 
           </md-card-content>

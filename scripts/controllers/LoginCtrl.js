@@ -5,36 +5,30 @@
     .controller('LoginCtrl', function ($scope, $mdMedia, $mdToast, $http, Data, $location, $mdDialog) {
       $scope.containerWidth = '100%';
       $scope.loginDetails = {
-        credentials : {
-          username: '',
-          password: ''
-        }
+        username: '',
+        password: ''
       };
-      $scope.registration = {
-        details: {
-          name: '',
-          username: '',
-          password: '',
-          email: '',
-          contact: '',
-          work: ''
-        }
+      $scope.registrationDetails = {
+        name: '',
+        username: '',
+        password: '',
+        email: '',
+        contact: '',
+        work: ''
       };
 
       // Responsive Watcher
-      $scope.$watch(function() {
-        if($mdMedia('sm')) return '100%';
-        if($mdMedia('md')) return '600px';
-        if($mdMedia('lg')) return '960px';
+      $scope.$watch(function () {
+        if ($mdMedia('sm')) return '100%';
+        if ($mdMedia('md')) return '600px';
+        if ($mdMedia('lg')) return '960px';
         return '1200px';
-      }, function(width) {
+      }, function (width) {
         $scope.containerWidth = width;
       });
 
-      //  Methods
-
       // Open Toast
-      $scope.openToast = function(content) {
+      $scope.openToast = function (content) {
         $mdToast.show(
           $mdToast.simple()
             .content(content)
@@ -44,7 +38,7 @@
       };
 
       // Open Dialog
-      $scope.openDialog = function(ev, content, ok, callback) {
+      $scope.openDialog = function (ev, content, ok, callback) {
         $mdDialog.show(
           $mdDialog.alert()
             .title('Error')
@@ -59,19 +53,19 @@
       $scope.login = function ($event) {
 
         // Username Check
-        if($scope.loginDetails.credentials.username == ''){
+        if ($scope.loginDetails.username == '') {
           $scope.openToast('Username is empty');
           return;
         }
 
         // Password Check
-        if($scope.loginDetails.credentials.password == ''){
+        if ($scope.loginDetails.password == '') {
           $scope.openToast('Password is empty');
           return;
         }
 
         // Submit
-        $http.post(Data.links.base + Data.links.login, $scope.loginDetails.credentials)
+        $http.post(Data.links.base + Data.links.login, $scope.loginDetails)
           .success(function (response) {
 
             Data.token = response.token;
@@ -80,17 +74,17 @@
           })
           .error(function (response) {
 
-            if(response && response.error == 'username'){
+            if (response && response.error == 'username') {
               $scope.openDialog($event, 'Username is not registered', 'Okay', function () {
-                $scope.loginDetails.credentials.username = '';
-                $scope.loginDetails.credentials.password = '';
+                $scope.loginDetails.username = '';
+                $scope.loginDetails.password = '';
               });
               return;
             }
 
-            if(response && response.error == 'password'){
+            if (response && response.error == 'password') {
               $scope.openDialog($event, 'Password is incorrect', 'Okay', function () {
-                $scope.loginDetails.credentials.password = '';
+                $scope.loginDetails.password = '';
               });
               return;
             }
@@ -105,31 +99,31 @@
       $scope.register = function ($event) {
 
         // Name Check
-        if($scope.registration.details.name == ''){
+        if ($scope.registrationDetails.name == '') {
           $scope.openToast('Name is empty');
           return;
         }
 
         // Username Check
-        if($scope.registration.details.username == ''){
+        if ($scope.registrationDetails.username == '') {
           $scope.openToast('Username is empty');
           return;
         }
 
         // Password Check
-        if($scope.registration.details.password == ''){
+        if ($scope.registrationDetails.password == '') {
           $scope.openToast('Password is empty');
           return;
         }
 
         // Email Check
-        if($scope.registration.details.email == ''){
+        if ($scope.registrationDetails.email == '') {
           $scope.openToast('Email is empty');
           return;
         }
 
         // Submit
-        $http.post(Data.links.base + Data.links.register, $scope.registration.details)
+        $http.post(Data.links.base + Data.links.register, $scope.registrationDetails)
           .success(function (response) {
 
             Data.token = response.token;
@@ -138,10 +132,10 @@
           })
           .error(function (response) {
 
-            if(response && response.error == 'username'){
-              $scope.openDialog($event, 'Username is already taken.', 'Okay', function () {
-                $scope.registration.details.username = '';
-                $scope.registration.details.password = '';
+            if (response && response.error == 'username') {
+              $scope.openDialog($event, 'Username is taken already.', 'Okay', function () {
+                $scope.registrationDetails.username = '';
+                $scope.registrationDetails.password = '';
               });
               return;
             }
@@ -150,6 +144,18 @@
 
           });
 
+      };
+
+      $scope.loginEnterHandler = function ($event) {
+        if($event.which == 13){
+          $scope.login($event);
+        }
+      };
+
+      $scope.registerEnterHandler = function ($event) {
+        if($event.which == 13){
+          $scope.register($event);
+        }
       };
 
     });

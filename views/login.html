@@ -31,17 +31,19 @@
             <!-- Username Input-->
             <md-input-container>
               <label>Username</label>
-              <input type="text" ng-model="loginDetails.credentials.username" title="Username">
+              <input ng-keypress="loginEnterHandler($event)" type="text" ng-model="loginDetails.username"
+                     title="Username">
             </md-input-container>
 
             <!-- Password Input-->
             <md-input-container>
               <label>Password</label>
-              <input type="password" ng-model="loginDetails.credentials.password" title="Password">
+              <input ng-keypress="loginEnterHandler($event)" type="password" ng-model="loginDetails.password"
+                     title="Password">
             </md-input-container>
 
             <!-- Submit Button-->
-            <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+            <md-button class="md-raised md-primary" ng-click="login($event)">Login</md-button>
 
           </div>
 
@@ -58,19 +60,22 @@
               <!-- Name Input-->
               <md-input-container>
                 <label>Name</label>
-                <input type="text" ng-model="registration.details.name" title="Name">
+                <input ng-keypress="registerEnterHandler($event)" type="text" ng-model="registrationDetails.name"
+                       title="Name">
               </md-input-container>
 
               <!-- Username Input-->
               <md-input-container>
                 <label>Username</label>
-                <input type="text" ng-model="registration.details.username" title="Username">
+                <input ng-keypress="registerEnterHandler($event)" type="text" ng-model="registrationDetails.username"
+                       title="Username">
               </md-input-container>
 
               <!-- Password Input-->
               <md-input-container>
                 <label>Password</label>
-                <input type="password" ng-model="registration.details.password" title="Password">
+                <input ng-keypress="registerEnterHandler($event)" type="password"
+                       ng-model="registrationDetails.password" title="Password">
               </md-input-container>
 
             </div>
@@ -80,25 +85,28 @@
               <!-- Email Input-->
               <md-input-container>
                 <label>Email</label>
-                <input type="email" ng-model="registration.details.email" title="Email">
+                <input ng-keypress="registerEnterHandler($event)" type="email" ng-model="registrationDetails.email"
+                       title="Email">
               </md-input-container>
 
               <!-- Contact Input-->
               <md-input-container>
                 <label>Contact No</label>
-                <input type="text" ng-model="registration.details.contact" title="Contact No">
+                <input ng-keypress="registerEnterHandler($event)" type="text" ng-model="registrationDetails.contact"
+                       title="Contact No">
               </md-input-container>
 
               <!-- Contact Input-->
               <md-input-container>
                 <label>Working / Studying at</label>
-                <input type="text" ng-model="registration.details.work" title="Working / Studying at">
+                <input ng-keypress="registerEnterHandler($event)" type="text" ng-model="registrationDetails.work"
+                       title="Working / Studying at">
               </md-input-container>
 
             </div>
 
             <!-- Submit Button-->
-            <md-button class="md-raised md-primary" ng-click="register()">Register</md-button>
+            <md-button class="md-raised md-primary" ng-click="register($event)">Register</md-button>
 
           </div>
 
