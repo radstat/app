@@ -121,7 +121,6 @@
 
           $scope.openToast('Uploaded Successfully.');
           $scope.uploader.moduleName = '';
-          file.files = [];
           $scope.state = 'ready';
 
         }).error(function (response) {
